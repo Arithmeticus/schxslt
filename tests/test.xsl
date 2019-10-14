@@ -15,7 +15,7 @@
               select="true()"/>
    <rdf:Description>
       <dc:creator>SchXslt 1.4-SNAPSHOT / SAXON PE 9.8.0.12 (Saxonica)</dc:creator>
-      <dc:date>2019-10-14T05:07:48.923-04:00</dc:date>
+      <dc:date>2019-10-14T05:15:40.756-04:00</dc:date>
    </rdf:Description>
    <xsl:output indent="yes"/>
    <xsl:variable xmlns:sqf="http://www.schematron-quickfix.com/validator/process"
@@ -44,7 +44,7 @@
    <xsl:template match="/" mode="#default schxslt:test.sch">
       <xsl:variable name="report" as="element(schxslt:report)">
          <schxslt:report>
-            <xsl:call-template name="d10e39">
+            <xsl:call-template name="d10e7">
                <xsl:with-param name="default-document" as="document-node()" select="."/>
             </xsl:call-template>
          </schxslt:report>
@@ -60,11 +60,11 @@
             <dc:creator>
                <xsl:value-of select="normalize-space(concat(system-property('xsl:product-name'), ' ', system-property('xsl:product-version')))"/>
             </dc:creator>
-            <dc:date>2019-10-14T05:07:48.923-04:00</dc:date>
+            <dc:date>2019-10-14T05:15:40.756-04:00</dc:date>
             <dc:source>
                <rdf:Description>
                   <dc:creator>SchXslt 1.4-SNAPSHOT / SAXON PE 9.8.0.12 (Saxonica)</dc:creator>
-                  <dc:date>2019-10-14T05:07:48.923-04:00</dc:date>
+                  <dc:date>2019-10-14T05:15:40.756-04:00</dc:date>
                </rdf:Description>
             </dc:source>
          </svrl:metadata>
@@ -74,35 +74,70 @@
       </svrl:schematron-output>
    </xsl:template>
    <!--By default, the modes employed in this schxslt file are shallow skips...-->
-   <xsl:template match="text() | @*" mode="#default schxslt:test.sch d10e39"/>
+   <xsl:template match="text() | @*" mode="#default schxslt:test.sch d10e7"/>
    <xsl:template match="* | processing-instruction() | comment()"
-                 mode="#default schxslt:test.sch d10e39">
+                 mode="#default schxslt:test.sch d10e7">
       <xsl:apply-templates mode="#current" select="@* | node()"/>
    </xsl:template>
    <!--...but all other template modes should defer to rules specified by any imported stylesheets.-->
    <xsl:template match="document-node() | node() | @*" mode="#all" priority="-1">
       <xsl:apply-imports/>
    </xsl:template>
-   <xsl:template name="d10e39">
+   <xsl:template name="d10e7">
       <xsl:param name="default-document" as="document-node()"/>
       <xsl:variable name="documents" as="item()+">
          <xsl:sequence select="$default-document"/>
       </xsl:variable>
       <xsl:for-each select="$documents">
          <xsl:variable name="this-base-uri" select="(*/@xml:base, base-uri(.))[1]"/>
-         <schxslt:pattern id="d10e39@{$this-base-uri}">
+         <schxslt:pattern id="d10e7@{$this-base-uri}">
             <svrl:active-pattern xmlns:svrl="http://purl.oclc.org/dsdl/svrl">
                <xsl:attribute name="documents" select="$this-base-uri"/>
             </svrl:active-pattern>
          </schxslt:pattern>
-         <xsl:apply-templates mode="d10e39" select="."/>
+         <schxslt:pattern id="d10e48@{$this-base-uri}">
+            <svrl:active-pattern xmlns:svrl="http://purl.oclc.org/dsdl/svrl">
+               <xsl:attribute name="documents" select="$this-base-uri"/>
+            </svrl:active-pattern>
+         </schxslt:pattern>
+         <xsl:apply-templates mode="d10e7" select="."/>
       </xsl:for-each>
    </xsl:template>
-   <xsl:template match="*" priority="1" mode="d10e39">
+   <xsl:template match="nothing" priority="2" mode="d10e7">
       <xsl:param name="schxslt:rules" as="element(schxslt:rule)*"/>
       <xsl:choose>
-         <xsl:when test="empty($schxslt:rules[@pattern = 'd10e39'][@context = generate-id(current())])">
-            <schxslt:rule pattern="d10e39@{base-uri(.)}">
+         <xsl:when test="empty($schxslt:rules[@pattern = 'd10e7'][@context = generate-id(current())])">
+            <schxslt:rule pattern="d10e7@{base-uri(.)}">
+               <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="nothing"/>
+               <xsl:if test="false()">
+                  <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                          location="{schxslt:location(.)}"
+                                          test="false()">
+                     <svrl:text>dummy report</svrl:text>
+                  </svrl:successful-report>
+               </xsl:if>
+            </schxslt:rule>
+         </xsl:when>
+         <xsl:otherwise>
+            <schxslt:rule pattern="d10e7@{base-uri(.)}">
+               <xsl:comment xmlns:svrl="http://purl.oclc.org/dsdl/svrl">WARNING: Rule for context "nothing" shadowed by preceeding rule</xsl:comment>
+               <xsl:message xmlns:svrl="http://purl.oclc.org/dsdl/svrl">WARNING: Rule for context "nothing" shadowed by preceeding rule</xsl:message>
+               <svrl:suppressed-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="nothing"/>
+            </schxslt:rule>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:next-match>
+         <xsl:with-param name="schxslt:rules" as="element(schxslt:rule)*">
+            <xsl:sequence select="$schxslt:rules"/>
+            <schxslt:rule context="{generate-id()}" pattern="d10e7"/>
+         </xsl:with-param>
+      </xsl:next-match>
+   </xsl:template>
+   <xsl:template match="*" priority="1" mode="d10e7">
+      <xsl:param name="schxslt:rules" as="element(schxslt:rule)*"/>
+      <xsl:choose>
+         <xsl:when test="empty($schxslt:rules[@pattern = 'd10e48'][@context = generate-id(current())])">
+            <schxslt:rule pattern="d10e48@{base-uri(.)}">
                <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="*"/>
                <xsl:if test="$report-test">
                   <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -115,7 +150,7 @@
             </schxslt:rule>
          </xsl:when>
          <xsl:otherwise>
-            <schxslt:rule pattern="d10e39@{base-uri(.)}">
+            <schxslt:rule pattern="d10e48@{base-uri(.)}">
                <xsl:comment xmlns:svrl="http://purl.oclc.org/dsdl/svrl">WARNING: Rule for context "*" shadowed by preceeding rule</xsl:comment>
                <xsl:message xmlns:svrl="http://purl.oclc.org/dsdl/svrl">WARNING: Rule for context "*" shadowed by preceeding rule</xsl:message>
                <svrl:suppressed-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="*"/>
@@ -125,7 +160,7 @@
       <xsl:next-match>
          <xsl:with-param name="schxslt:rules" as="element(schxslt:rule)*">
             <xsl:sequence select="$schxslt:rules"/>
-            <schxslt:rule context="{generate-id()}" pattern="d10e39"/>
+            <schxslt:rule context="{generate-id()}" pattern="d10e48"/>
          </xsl:with-param>
       </xsl:next-match>
    </xsl:template>

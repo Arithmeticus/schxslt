@@ -4,6 +4,11 @@
     xmlns:sqf="http://www.schematron-quickfix.com/validator/process" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <sch:ns uri="http://www.w3.org/1999/XSL/Transform" prefix="xsl"/>
     <sch:ns uri="http://example.com" prefix="ex"/>
+    <sch:pattern>
+        <sch:rule context="nothing">
+            <sch:report test="false()">dummy report</sch:report>
+        </sch:rule>
+    </sch:pattern>
     <xsl:param name="report-test" as="xs:boolean" select="true()"/>
     <xsl:variable name="element-a" as="element()">
         <a>
