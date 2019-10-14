@@ -10,6 +10,21 @@
                         <scenarioAssociation-array>
                             <scenarioAssociation>
                                 <field name="url">
+                                    <String>tests/test%20-%20not%20yet%20supported.sch</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>schxslt</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>XSL</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
                                     <String>tests/test.xml</String>
                                 </field>
                                 <field name="scenarioIds">
