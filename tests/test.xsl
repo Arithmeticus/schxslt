@@ -9,9 +9,13 @@
                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                xmlns:ex="http://example.com"
                version="2.0">
+   <xsl:param xmlns:sqf="http://www.schematron-quickfix.com/validator/process"
+              name="report-test"
+              as="xs:boolean"
+              select="true()"/>
    <rdf:Description>
       <dc:creator>SchXslt 1.4-SNAPSHOT / SAXON PE 9.8.0.12 (Saxonica)</dc:creator>
-      <dc:date>2019-10-14T05:04:35.073-04:00</dc:date>
+      <dc:date>2019-10-14T05:07:48.923-04:00</dc:date>
    </rdf:Description>
    <xsl:output indent="yes"/>
    <xsl:variable xmlns:sqf="http://www.schematron-quickfix.com/validator/process"
@@ -56,11 +60,11 @@
             <dc:creator>
                <xsl:value-of select="normalize-space(concat(system-property('xsl:product-name'), ' ', system-property('xsl:product-version')))"/>
             </dc:creator>
-            <dc:date>2019-10-14T05:04:35.073-04:00</dc:date>
+            <dc:date>2019-10-14T05:07:48.923-04:00</dc:date>
             <dc:source>
                <rdf:Description>
                   <dc:creator>SchXslt 1.4-SNAPSHOT / SAXON PE 9.8.0.12 (Saxonica)</dc:creator>
-                  <dc:date>2019-10-14T05:04:35.073-04:00</dc:date>
+                  <dc:date>2019-10-14T05:07:48.923-04:00</dc:date>
                </rdf:Description>
             </dc:source>
          </svrl:metadata>
