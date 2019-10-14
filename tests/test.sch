@@ -4,6 +4,7 @@
     xmlns:sqf="http://www.schematron-quickfix.com/validator/process" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <sch:ns uri="http://www.w3.org/1999/XSL/Transform" prefix="xsl"/>
     <sch:ns uri="http://example.com" prefix="ex"/>
+    <xsl:param name="report-test" as="xs:boolean" select="true()"/>
     <xsl:variable name="element-a" as="element()">
         <a>
             <b/>
@@ -23,7 +24,7 @@
     </xsl:template>
     <sch:pattern>
         <sch:rule context="*">
-            <sch:report test="true()">Test: <sch:value-of select="ex:imprint-name($element-a)"
+            <sch:report test="$report-test">Test: <sch:value-of select="ex:imprint-name($element-a)"
                 /></sch:report>
         </sch:rule>
     </sch:pattern>
