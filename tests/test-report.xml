@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                        xmlns:dc="http://purl.org/dc/elements/1.1/"
+                        xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                        xmlns:error="https://doi.org/10.5281/zenodo.1495494#error"
+                        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                        xmlns:schxslt-api="https://doi.org/10.5281/zenodo.1495494#api"
+                        xmlns:schxslt="https://doi.org/10.5281/zenodo.1495494"
+                        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                        xmlns:ex="http://example.com">
+   <svrl:metadata>
+      <dc:creator>SAXON PE 9.8.0.12</dc:creator>
+      <dc:date>2019-10-14T04:54:59.027-04:00</dc:date>
+      <dc:source>
+         <rdf:Description>
+            <dc:creator>SchXslt 1.4-SNAPSHOT / SAXON PE 9.8.0.12 (Saxonica)</dc:creator>
+            <dc:date>2019-10-14T04:54:59.027-04:00</dc:date>
+         </rdf:Description>
+      </dc:source>
+   </svrl:metadata>
+   <svrl:ns-prefix-in-attribute-values prefix="xsl" uri="http://www.w3.org/1999/XSL/Transform"/>
+   <svrl:ns-prefix-in-attribute-values prefix="ex" uri="http://example.com"/>
+   <svrl:active-pattern documents="file:/E:/Joel/Dropbox/schxslt/tests/test.xml"/>
+   <svrl:fired-rule context="*"/>
+   <svrl:successful-report location="/Q{}test[1]" test="true()">
+      <svrl:text>Test: name: a name: b name: c </svrl:text>
+   </svrl:successful-report>
+</svrl:schematron-output>
